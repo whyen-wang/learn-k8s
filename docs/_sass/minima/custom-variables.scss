@@ -1,0 +1,43 @@
+#swagger-ui {
+    line-height: normal;
+    background: #fafafa;
+    h2 {
+        display: block;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    h3 {
+        display: block;
+        font-size: 1.17em;
+        font-weight: bold;
+    }
+    h4 {
+        display: block;
+        font-weight: bold;
+    }
+    p {
+        display: block;
+    }
+    pre, code {
+        border: 0px;
+        background-color: transparent;
+    }
+    table {
+        display: table;
+        border: 0px;
+        color: inherit;
+    }
+    table th {
+        background-color: transparent;
+        border: 0px;
+    }
+    table tr td {
+        border: 0px;
+    }
+    table thead tr td {
+        border-bottom: 1px solid rgba(59,65,81,.2);
+    }
+    table tr:nth-child(even) {
+        background-color: transparent;
+    }
+}

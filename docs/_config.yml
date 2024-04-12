@@ -21,7 +21,7 @@
 title: "learn-k8s"
 email: wayne500000w@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  This is Whyen's k8s learn note.
+  This is Whyen's k8s learning note.
 domain: whyen-wang.github.io       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
 url: https://whyen-wang.github.io  # the base hostname and protocol for your site, e.g. http://example.com
 baseurl: /learn-k8s/                   # place folder name if the site is served in a subfolder

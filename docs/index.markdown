@@ -4,4 +4,5 @@
 
 layout: home
 ---
-Note of learning k8s
+Note for learning Kubernetes
+- [Setup Self-Hosting Kubernetes](./Kubeadm)

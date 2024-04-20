@@ -4,11 +4,10 @@ title: Kubeadm
 permalink: /Kubeadm/
 ---
 
-## Overview:
-Network structure
-![Network structure](/assets/Kubeadm/structure.svg)
-
 ## Step 1: Setup DHCP server
+Network structure:
+![Network structure](/assets/Kubeadm/network_structure.svg)
+
 1. Get network interface name
 ```bash
 ip addr
@@ -105,3 +104,68 @@ lease 10.0.0.4 {
   ...
 }
 ```
+
+## Step 2: Install Docker Engine and Setup CRI (Container Runtime Interface)
+Install docker engine and setup CRI all nodes.
+Container Runtime Interface:
+![Container Runtime Interface](/assets/Kubeadm/container_runtime_interface.svg)
+
+1. Configure prerequisites
+```bash
+# sysctl params required by setup, params persist across reboots
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.ipv4.ip_forward = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+```
+Verify:
+```bash
+sysctl net.ipv4.ip_forward
+```
+
+2. Set up Docker's apt repository
+```bash
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+```
+
+3. Install the Docker packages
+```bash
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+4. Configure the containerd
+  - /etc/containerd/config.toml
+  ```
+  # remove "cri" from the list of disabled_plugins
+  disabled_plugins = []
+  ```
+
+5. Restart containerd
+```bash
+sudo systemctl restart containerd
+```
+
+6. Verify:
+```bash
+sudo systemctl status docker.service
+sudo systemctl status docker.socket
+sudo systemctl status containerd.service
+```
+
+## references
+1. [docker engine](https://docs.docker.com/engine/install/ubuntu/)
+2. [kubernetes](https://kubernetes.io/docs/setup/production-environment/)

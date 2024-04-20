@@ -63,9 +63,8 @@ setup dhcp server interface
 
 6. Edit /etc/sysctl.conf
 ```
-net.ipv4.ip_forward=1
+net.ipv4.ip_forward=1  # IP forwarding
 ```
-IP forwarding
 
 7. Setup iptables
 ```bash
@@ -78,7 +77,7 @@ sudo chmod o-w /etc/iptables/rules.v4
 ```
 
 8. Apply setting
-```
+```bash
 sudo netplan apply
 sudo sysctl -p
 sudo systemctl restart netfilter-persistent
@@ -87,8 +86,8 @@ sudo reboot
 ```
 
 9. Verify
-* Connect all device to network switch
-```
+* Connect all devices to network switch
+```bash
 cat /var/lib/dhcp/dhcpd.leases
 ```
 outputs:

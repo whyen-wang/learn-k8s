@@ -111,6 +111,7 @@ Container Runtime Interface:
 ![Container Runtime Interface](/assets/Kubeadm/container_runtime_interface.svg)
 
 1. Configure prerequisites
+
 ```bash
 # sysctl params required by setup, params persist across reboots
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
